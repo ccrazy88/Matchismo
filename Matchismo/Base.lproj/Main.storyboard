@@ -26,7 +26,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bwT-lw-Vm9">
                                 <rect key="frame" x="268" y="252" width="64" height="96"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="A♣︎" backgroundImage="CardFront">
+                                <state key="normal" backgroundImage="CardBack">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -52,6 +52,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CardFront" width="64" height="96"/>
+        <image name="CardBack" width="64" height="96"/>
     </resources>
 </document>
