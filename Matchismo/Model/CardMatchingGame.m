@@ -14,6 +14,7 @@
 
 // NSMutableArray of Cards
 @property (strong, nonatomic) NSMutableArray *cards;
+@property (strong, nonatomic, readwrite) CardMatchingGameResult *lastMove;
 @property (nonatomic, readwrite) NSInteger score;
 
 @end
@@ -98,30 +99,54 @@ static const NSUInteger MIN_CARDS_TO_MATCH = 2;
     Card *card = [self cardAtIndex:index];
     if (card) {
         if (!card.isMatched) {
+            NSArray *otherCards;
+            BOOL matchAttempted = NO;
+            NSInteger matchScore = 0;
+
             if (card.isChosen) {
                 card.chosen = NO;
             } else {
                 // Put potential cards to match into an array.
-                NSArray *otherCards = [self cardsEligibleForMatching:self.cards];
+                otherCards = [self cardsEligibleForMatching:self.cards];
                 // Only try to match the cards when there are enough of them.
                 if ([otherCards count] + 1 == self.cardsToMatch) {
-                    NSInteger matchScore = [card match:otherCards];
+                    matchScore = [card match:otherCards];
                     if (matchScore) {
-                        self.score += matchScore * MATCH_BONUS;
+                        matchScore *= MATCH_BONUS;
+                        self.score += matchScore;
                         card.matched = YES;
                         for (Card *otherCard in otherCards) {
                             otherCard.matched = YES;
                         }
                     } else {
-                        self.score -= MISMATCH_PENALTY;
+                        matchScore += MISMATCH_PENALTY;
+                        self.score -= matchScore;
                         for (Card *otherCard in otherCards) {
                             otherCard.chosen = NO;
                         }
                     }
+                    matchAttempted = YES;
                 }
                 self.score -= COST_TO_CHOOSE;
                 card.chosen = YES;
             }
+
+            // To capture enough information to generate text about each move that has been made,
+            // add a "result" object to an array with relevant information (i.e. cards chosen,
+            // whether or not matching was attempted, and the result of that attempt).
+            NSArray *allCards;
+            if (card.isChosen) {
+                allCards = [otherCards arrayByAddingObjectsFromArray:@[card]];
+            } else {
+                allCards = otherCards;
+            }
+
+            CardMatchingGameResult *result;
+            result = [[CardMatchingGameResult alloc] initWithCards:allCards
+                                                    matchAttempted:matchAttempted
+                                                           matched:card.isMatched
+                                                        matchScore:matchScore];
+            self.lastMove = result;
         }
     }
 

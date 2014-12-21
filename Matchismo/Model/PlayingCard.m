@@ -59,7 +59,7 @@
 {
     NSMutableDictionary *ranks = [[NSMutableDictionary alloc] init];
     for (PlayingCard *card in cards) {
-        [ranks setValue:@1 forKey:[NSString stringWithFormat:@"%lu", card.rank]];
+        [ranks setValue:@1 forKey:[NSString stringWithFormat:@"%lu", (unsigned long)card.rank]];
     }
     return [ranks count];
 }

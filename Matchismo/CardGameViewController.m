@@ -15,6 +15,7 @@
 @property (strong, nonatomic) CardMatchingGame *game;
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (weak, nonatomic) IBOutlet UILabel *historyLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *modeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
@@ -55,23 +56,58 @@
     return [UIImage imageNamed:card.isChosen ? @"CardFront" : @"CardBack"];
 }
 
+- (NSString *)stringForCards:(NSArray *)cards
+{
+    NSString *cardsString = @"";
+    for (Card *card in cards) {
+        cardsString = [cardsString stringByAppendingString:card.contents];
+    }
+    return cardsString;
+}
+
+- (NSString *)stringForLastMove
+{
+    CardMatchingGameResult *lastMove = self.game.lastMove;
+    NSString *cardsString = [self stringForCards:self.game.lastMove.cards];
+    NSString *lastMoveString;
+    if (lastMove.matchAttempted) {
+        if (lastMove.isMatched) {
+            lastMoveString = [NSString stringWithFormat:@"Matched %@ for %ld point", cardsString, (long)lastMove.matchScore];
+            if (lastMove.matchScore != 1) {
+                lastMoveString = [lastMoveString stringByAppendingString:@"s"];
+            }
+            lastMoveString = [lastMoveString stringByAppendingString:@"."];
+        } else {
+            lastMoveString = [NSString stringWithFormat:@"%@ don't match! %ld point penalty!", cardsString, (long)lastMove.matchScore];
+        }
+    } else {
+        lastMoveString = cardsString;
+    }
+    return lastMoveString;
+}
+
 #pragma mark - Game
 
 - (IBAction)startNewGame {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Start New Game"
-                                                                             message:@"Are you sure?"
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No"
-                                                       style:UIAlertActionStyleCancel
-                                                     handler:nil];
-    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes"
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction *action) {
-                                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                                              self.game = [self createGame];
-                                                              [self resetUI];
-                                                          });
-                                                      }];
+    UIAlertController *alertController;
+    UIAlertAction *noAction;
+    UIAlertAction *yesAction;
+
+    alertController = [UIAlertController alertControllerWithTitle:@"Start New Game"
+                                                          message:@"Are you sure?"
+                                                   preferredStyle:UIAlertControllerStyleAlert];
+    noAction = [UIAlertAction actionWithTitle:@"No"
+                                        style:UIAlertActionStyleCancel
+                                      handler:nil];
+    yesAction = [UIAlertAction actionWithTitle:@"Yes"
+                                         style:UIAlertActionStyleDefault
+                                       handler:^(UIAlertAction *action) {
+                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                               self.game = [self createGame];
+                                               [self resetUI];
+                                           });
+                                       }];
+
     [alertController addAction:noAction];
     [alertController addAction:yesAction];
     [self presentViewController:alertController animated:YES completion:nil];
@@ -111,6 +147,7 @@
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
     }
+    self.historyLabel.text = [self stringForLastMove];
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld", (long)self.game.score];
 }
 

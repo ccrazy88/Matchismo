@@ -9,12 +9,15 @@
 @import Foundation;
 
 #import "Card.h"
+#import "CardMatchingGameResult.h"
 #import "Deck.h"
 
 @interface CardMatchingGame : NSObject
 
 @property (nonatomic) NSUInteger cardsToMatch;
+@property (strong, nonatomic, readonly) CardMatchingGameResult *lastMove;
 @property (nonatomic, readonly) NSInteger score;
+
 
 - (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck;
 
