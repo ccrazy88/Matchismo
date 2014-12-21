@@ -55,16 +55,51 @@
     return @[@"♠️", @"♣️", @"♥️", @"♦️"];
 }
 
+- (NSUInteger)uniqueRanksInCards:(NSArray *)cards
+{
+    NSMutableDictionary *ranks = [[NSMutableDictionary alloc] init];
+    for (PlayingCard *card in cards) {
+        [ranks setValue:@1 forKey:[NSString stringWithFormat:@"%lu", card.rank]];
+    }
+    return [ranks count];
+}
+
+- (NSUInteger)uniqueSuitsInCards:(NSArray *)cards
+{
+    NSMutableDictionary *suits = [[NSMutableDictionary alloc] init];
+    for (PlayingCard *card in cards) {
+        [suits setValue:@1 forKey:card.suit];
+    }
+    return [suits count];
+}
+
 #pragma mark - Card Matching
 
 - (NSInteger)match:(NSArray *)otherCards
 {
     NSInteger score = 0;
-    if ([otherCards count] == 1) {
+    NSUInteger otherCardsCount = [otherCards count];
+    // Matching with one other card and two other cards supported.
+    if (otherCardsCount == 1) {
         PlayingCard *otherCard = [otherCards firstObject];
         if (self.rank == otherCard.rank) {
             score = 4;
         } else if ([self.suit isEqualToString:otherCard.suit]) {
+            score = 1;
+        }
+    } else if (otherCardsCount == 2) {
+        NSArray *allCards = [otherCards arrayByAddingObjectsFromArray:@[self]];
+        NSUInteger uniqueRanks = [self uniqueRanksInCards:allCards];
+        NSUInteger uniqueSuits = [self uniqueSuitsInCards:allCards];
+        if (uniqueRanks == 1) {
+            score = 100;
+        } else if (uniqueSuits == 1) {
+            score = 4;
+        } else if (uniqueRanks == 2 && uniqueSuits == 2) {
+            score = 3;
+        } else if (uniqueRanks == 2) {
+            score = 2;
+        } else if (uniqueSuits == 2) {
             score = 1;
         }
     }

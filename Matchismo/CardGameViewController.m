@@ -15,6 +15,7 @@
 @property (strong, nonatomic) CardMatchingGame *game;
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *modeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
 @end
@@ -78,6 +79,16 @@
 
 - (IBAction)touchCardButton:(UIButton *)sender
 {
+    if (self.modeSegmentedControl.enabled) {
+        self.modeSegmentedControl.enabled = NO;
+        NSInteger segmentIndex = self.modeSegmentedControl.selectedSegmentIndex;
+        if (segmentIndex == 0) {
+            self.game.cardsToMatch = 2;
+        } else if (segmentIndex == 1) {
+            self.game.cardsToMatch = 3;
+        }
+    }
+    // Assumes that all buttons are inside cardButtons.
     NSUInteger cardButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:cardButtonIndex];
     [self updateUI];
@@ -87,6 +98,7 @@
 
 - (void)resetUI
 {
+    self.modeSegmentedControl.enabled = YES;
     [self updateUI];
 }
 
