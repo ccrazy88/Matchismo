@@ -10,10 +10,10 @@
 
 @interface CardMatchingGameResult : NSObject
 
-@property (strong, nonatomic) NSArray *cards;
-@property (nonatomic, getter=isMatchAttempted) BOOL matchAttempted;
-@property (nonatomic, getter=isMatched) BOOL matched;
-@property (nonatomic) NSInteger matchScore;
+@property (strong, nonatomic, readonly) NSArray *cards;
+@property (nonatomic, getter=isMatchAttempted, readonly) BOOL matchAttempted;
+@property (nonatomic, getter=isMatched, readonly) BOOL matched;
+@property (nonatomic, readonly) NSInteger matchScore;
 
 - (instancetype)initWithCards:(NSArray *)cards
                matchAttempted:(BOOL)matchAttempted
