@@ -26,13 +26,18 @@
 - (CardMatchingGame *)game
 {
     if (!_game) {
-        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                                  usingDeck:[self createDeck]];
+        _game = [self createGame];
     }
     return _game;
 }
 
 #pragma mark - Utilities
+
+- (CardMatchingGame *)createGame
+{
+    return [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
+                                             usingDeck:[self createDeck]];
+}
 
 - (Deck *)createDeck
 {
@@ -51,6 +56,26 @@
 
 #pragma mark - Game
 
+- (IBAction)startNewGame {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Start New Game"
+                                                                             message:@"Are you sure?"
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No"
+                                                       style:UIAlertActionStyleCancel
+                                                     handler:nil];
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                              self.game = [self createGame];
+                                                              [self resetUI];
+                                                          });
+                                                      }];
+    [alertController addAction:noAction];
+    [alertController addAction:yesAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 - (IBAction)touchCardButton:(UIButton *)sender
 {
     NSUInteger cardButtonIndex = [self.cardButtons indexOfObject:sender];
@@ -59,6 +84,11 @@
 }
 
 #pragma mark - UI
+
+- (void)resetUI
+{
+    [self updateUI];
+}
 
 - (void)updateUI
 {
