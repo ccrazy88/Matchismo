@@ -157,7 +157,8 @@
 
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld", (long)self.game.score];
 
-    NSUInteger maxHistoryIndex = MAX(0, (NSInteger)[self.game.history count] - 1);
+    NSUInteger historyCount = [self.game.history count];
+    NSUInteger maxHistoryIndex = historyCount == 0 ? 0 : historyCount - 1;
     self.historySlider.maximumValue = (float)maxHistoryIndex;
     self.historySlider.enabled = self.historySlider.minimumValue == self.historySlider.maximumValue ? NO : YES;
     [self.historySlider setValue:self.historySlider.maximumValue animated:YES];

@@ -20,6 +20,7 @@
 		99D5297119FCC25000D52D8A /* MatchismoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D5297019FCC25000D52D8A /* MatchismoTests.m */; };
 		99D5297E19FCC2EC00D52D8A /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D5297D19FCC2EC00D52D8A /* Card.m */; };
 		99D529B319FCFBC700D52D8A /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D529B219FCFBC700D52D8A /* Deck.m */; };
+		99E013DB1A4B756200CC4D5B /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 99E013DA1A4B756200CC4D5B /* Warnings.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		99D5297D19FCC2EC00D52D8A /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Card.m; path = Model/Card.m; sourceTree = "<group>"; };
 		99D529B119FCFBC700D52D8A /* Deck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Deck.h; path = Model/Deck.h; sourceTree = "<group>"; };
 		99D529B219FCFBC700D52D8A /* Deck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Deck.m; path = Model/Deck.m; sourceTree = "<group>"; };
+		99E013DA1A4B756200CC4D5B /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = Matchismo/Warnings.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				99D5295319FCC24F00D52D8A /* Matchismo */,
 				99D5296D19FCC25000D52D8A /* MatchismoTests */,
 				99D5295219FCC24F00D52D8A /* Products */,
+				99E013DA1A4B756200CC4D5B /* Warnings.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -238,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				99D5296019FCC25000D52D8A /* Main.storyboard in Resources */,
+				99E013DB1A4B756200CC4D5B /* Warnings.xcconfig in Resources */,
 				99D5296519FCC25000D52D8A /* LaunchScreen.xib in Resources */,
 				99D5296219FCC25000D52D8A /* Images.xcassets in Resources */,
 			);
@@ -309,6 +313,7 @@
 /* Begin XCBuildConfiguration section */
 		99D5297219FCC25000D52D8A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99E013DA1A4B756200CC4D5B /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -350,6 +355,7 @@
 		};
 		99D5297319FCC25000D52D8A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99E013DA1A4B756200CC4D5B /* Warnings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -385,6 +391,7 @@
 		};
 		99D5297519FCC25000D52D8A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99E013DA1A4B756200CC4D5B /* Warnings.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Matchismo/Info.plist;
@@ -396,6 +403,7 @@
 		};
 		99D5297619FCC25000D52D8A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99E013DA1A4B756200CC4D5B /* Warnings.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Matchismo/Info.plist;
@@ -407,6 +415,7 @@
 		};
 		99D5297819FCC25000D52D8A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99E013DA1A4B756200CC4D5B /* Warnings.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -426,6 +435,7 @@
 		};
 		99D5297919FCC25000D52D8A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99E013DA1A4B756200CC4D5B /* Warnings.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
