@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "Deck.h"
+
 @interface CardGameViewController : UIViewController
 
+// Abstract
+- (Deck *)createDeck;
 
 @end
 

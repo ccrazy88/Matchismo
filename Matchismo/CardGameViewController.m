@@ -9,7 +9,6 @@
 #import "CardGameViewController.h"
 #import "CardMatchingGame.h"
 #import "CardMatchingGameResult.h"
-#import "PlayingCardDeck.h"
 
 @interface CardGameViewController ()
 
@@ -35,17 +34,19 @@
     return _game;
 }
 
+#pragma mark - Abstract Utilities
+
+- (Deck *)createDeck
+{
+    return nil;
+}
+
 #pragma mark - Utilities
 
 - (CardMatchingGame *)createGame
 {
     return [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
                                              usingDeck:[self createDeck]];
-}
-
-- (Deck *)createDeck
-{
-    return [[PlayingCardDeck alloc] init];
 }
 
 - (NSString *)titleForCard:(Card *)card

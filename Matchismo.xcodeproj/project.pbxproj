@@ -21,6 +21,7 @@
 		99D5297E19FCC2EC00D52D8A /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D5297D19FCC2EC00D52D8A /* Card.m */; };
 		99D529B319FCFBC700D52D8A /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D529B219FCFBC700D52D8A /* Deck.m */; };
 		99E013DB1A4B756200CC4D5B /* Warnings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 99E013DA1A4B756200CC4D5B /* Warnings.xcconfig */; };
+		99E013DE1A4B7CBE00CC4D5B /* PlayingCardGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E013DD1A4B7CBE00CC4D5B /* PlayingCardGameViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,8 @@
 		99D529B119FCFBC700D52D8A /* Deck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Deck.h; path = Model/Deck.h; sourceTree = "<group>"; };
 		99D529B219FCFBC700D52D8A /* Deck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Deck.m; path = Model/Deck.m; sourceTree = "<group>"; };
 		99E013DA1A4B756200CC4D5B /* Warnings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Warnings.xcconfig; path = Matchismo/Warnings.xcconfig; sourceTree = "<group>"; };
+		99E013DC1A4B7CBE00CC4D5B /* PlayingCardGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCardGameViewController.h; sourceTree = "<group>"; };
+		99E013DD1A4B7CBE00CC4D5B /* PlayingCardGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCardGameViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +110,8 @@
 				99D5295919FCC25000D52D8A /* AppDelegate.m */,
 				99D5295B19FCC25000D52D8A /* CardGameViewController.h */,
 				99D5295C19FCC25000D52D8A /* CardGameViewController.m */,
+				99E013DC1A4B7CBE00CC4D5B /* PlayingCardGameViewController.h */,
+				99E013DD1A4B7CBE00CC4D5B /* PlayingCardGameViewController.m */,
 				99D5295E19FCC25000D52D8A /* Main.storyboard */,
 				99D5296119FCC25000D52D8A /* Images.xcassets */,
 				99D5296319FCC25000D52D8A /* LaunchScreen.xib */,
@@ -264,6 +269,7 @@
 				994F9FB91A00DDE700BF3351 /* PlayingCard.m in Sources */,
 				99D529B319FCFBC700D52D8A /* Deck.m in Sources */,
 				9952F4FD1A46DE6500A448A0 /* CardMatchingGameResult.m in Sources */,
+				99E013DE1A4B7CBE00CC4D5B /* PlayingCardGameViewController.m in Sources */,
 				99D5295D19FCC25000D52D8A /* CardGameViewController.m in Sources */,
 				99D5295A19FCC25000D52D8A /* AppDelegate.m in Sources */,
 				993991B51A3ACEA20038B520 /* CardMatchingGame.m in Sources */,
