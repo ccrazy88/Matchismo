@@ -8,6 +8,7 @@
 
 #import "CardGameViewController.h"
 #import "CardMatchingGame.h"
+#import "CardMatchingGameResult.h"
 #import "PlayingCardDeck.h"
 
 @interface CardGameViewController ()
@@ -16,6 +17,7 @@
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *historyLabel;
+@property (weak, nonatomic) IBOutlet UISlider *historySlider;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *modeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
@@ -65,25 +67,25 @@
     return cardsString;
 }
 
-- (NSString *)stringForLastMove
+- (NSString *)stringForMoveAtIndex:(NSUInteger)index
 {
-    CardMatchingGameResult *lastMove = self.game.lastMove;
-    NSString *cardsString = [self stringForCards:self.game.lastMove.cards];
-    NSString *lastMoveString;
-    if (lastMove.matchAttempted) {
-        if (lastMove.isMatched) {
-            lastMoveString = [NSString stringWithFormat:@"Matched %@ for %ld point", cardsString, (long)lastMove.matchScore];
-            if (lastMove.matchScore != 1) {
-                lastMoveString = [lastMoveString stringByAppendingString:@"s"];
+    NSString *moveString;
+    if (index < [self.game.history count]) {
+        CardMatchingGameResult *move = self.game.history[index];
+        NSString *cards = [self stringForCards:move.cards];
+        NSInteger score = move.matchScore;
+        if (move.matchAttempted) {
+            if (move.isMatched) {
+                moveString = [NSString stringWithFormat:@"Matched %@ for %ld point", cards, (long)score];
+                moveString = [moveString stringByAppendingString:score != 1 ? @"s." : @"."];
+            } else {
+                moveString = [NSString stringWithFormat:@"%@ don't match! %ld point penalty!", cards, (long)score];
             }
-            lastMoveString = [lastMoveString stringByAppendingString:@"."];
         } else {
-            lastMoveString = [NSString stringWithFormat:@"%@ don't match! %ld point penalty!", cardsString, (long)lastMove.matchScore];
+            moveString = cards;
         }
-    } else {
-        lastMoveString = cardsString;
     }
-    return lastMoveString;
+    return moveString;
 }
 
 #pragma mark - Game
@@ -131,6 +133,11 @@
 }
 
 #pragma mark - UI
+- (IBAction)slideThroughHistory:(UISlider *)sender {
+    NSUInteger historyIndex = (NSUInteger)round(sender.value);
+    self.historyLabel.text = [self stringForMoveAtIndex:historyIndex];
+    self.historyLabel.alpha = historyIndex < (NSUInteger)round(sender.maximumValue) ? 0.5f : 1.0f;
+}
 
 - (void)resetUI
 {
@@ -147,8 +154,15 @@
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
     }
-    self.historyLabel.text = [self stringForLastMove];
+
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld", (long)self.game.score];
+
+    NSUInteger maxHistoryIndex = MAX(0, (NSInteger)[self.game.history count] - 1);
+    NSLog(@"%lu", (long)maxHistoryIndex);
+    self.historySlider.maximumValue = (float)maxHistoryIndex;
+    self.historySlider.enabled = self.historySlider.minimumValue == self.historySlider.maximumValue ? NO : YES;
+    [self.historySlider setValue:self.historySlider.maximumValue animated:YES];
+    [self slideThroughHistory:self.historySlider];
 }
 
 @end

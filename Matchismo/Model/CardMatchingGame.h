@@ -9,13 +9,13 @@
 @import Foundation;
 
 #import "Card.h"
-#import "CardMatchingGameResult.h"
 #import "Deck.h"
 
 @interface CardMatchingGame : NSObject
 
 @property (nonatomic) NSUInteger cardsToMatch;
-@property (strong, nonatomic, readonly) CardMatchingGameResult *lastMove;
+// NSArray of CardMatchingGameResult
+@property (strong, nonatomic, readonly) NSArray *history;
 @property (nonatomic, readonly) NSInteger score;
 
 

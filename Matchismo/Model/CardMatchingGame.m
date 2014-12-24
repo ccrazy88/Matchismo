@@ -7,6 +7,7 @@
 //
 
 #import "CardMatchingGame.h"
+#import "CardMatchingGameResult.h"
 #import "Card.h"
 #import "Deck.h"
 
@@ -14,7 +15,8 @@
 
 // NSMutableArray of Cards
 @property (strong, nonatomic) NSMutableArray *cards;
-@property (strong, nonatomic, readwrite) CardMatchingGameResult *lastMove;
+// NSMutableArray of CardMatchingGameResult
+@property (strong, nonatomic) NSMutableArray *mutableHistory;
 @property (nonatomic, readwrite) NSInteger score;
 
 @end
@@ -37,6 +39,14 @@ static const NSUInteger MIN_CARDS_TO_MATCH = 2;
         _cards = [[NSMutableArray alloc] init];
     }
     return _cards;
+}
+
+- (NSMutableArray *)mutableHistory
+{
+    if (!_mutableHistory) {
+        _mutableHistory = [[NSMutableArray alloc] init];
+    }
+    return _mutableHistory;
 }
 
 #pragma mark - Initializers
@@ -71,6 +81,11 @@ static const NSUInteger MIN_CARDS_TO_MATCH = 2;
     if (cardsToMatch >= MIN_CARDS_TO_MATCH && cardsToMatch < [self.cards count]) {
         _cardsToMatch = cardsToMatch;
     }
+}
+
+- (NSArray *)history
+{
+    return [self.mutableHistory copy];
 }
 
 #pragma mark - Utilities
@@ -146,7 +161,7 @@ static const NSUInteger MIN_CARDS_TO_MATCH = 2;
                                                     matchAttempted:matchAttempted
                                                            matched:card.isMatched
                                                         matchScore:matchScore];
-            self.lastMove = result;
+            [self.mutableHistory addObject:result];
         }
     }
 
