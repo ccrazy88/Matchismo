@@ -79,6 +79,14 @@
 {
     NSInteger score = 0;
     NSUInteger otherCardsCount = [otherCards count];
+
+    // Only matching with PlayingCard supported.
+    for (id card in otherCards) {
+        if (![card isKindOfClass:[PlayingCard class]]) {
+            return score;
+        }
+    }
+
     // Matching with one other card and two other cards supported.
     if (otherCardsCount == 1) {
         PlayingCard *otherCard = [otherCards firstObject];
