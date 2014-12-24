@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Chrisna Aing. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface CardMatchingGameResult : NSObject
 

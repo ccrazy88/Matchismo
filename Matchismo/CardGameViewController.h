@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Chrisna Aing. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 #import "Deck.h"
 

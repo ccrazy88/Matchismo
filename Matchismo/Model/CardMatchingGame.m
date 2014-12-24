@@ -8,8 +8,6 @@
 
 #import "CardMatchingGame.h"
 #import "CardMatchingGameResult.h"
-#import "Card.h"
-#import "Deck.h"
 
 @interface CardMatchingGame()
 
