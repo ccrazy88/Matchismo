@@ -7,6 +7,7 @@
 //
 
 #import "CardGameViewController.h"
+#import "CardGameHistoryViewController.h"
 #import "CardMatchingGame.h"
 #import "CardMatchingGameResult.h"
 
@@ -88,6 +89,12 @@
     return moveString;
 }
 
+- (NSUInteger)maxHistoryIndex
+{
+    NSUInteger historyCount = [self.game.history count];
+    return historyCount == 0 ? 0 : historyCount - 1;
+}
+
 #pragma mark - Game
 
 - (void)createNewGame
@@ -147,11 +154,23 @@
     }
 
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld", (long)self.game.score];
+    self.historyLabel.attributedText = [self stringForMoveAtIndex:[self maxHistoryIndex]];
+}
 
-    NSUInteger historyCount = [self.game.history count];
-    NSUInteger maxHistoryIndex = historyCount == 0 ? 0 : historyCount - 1;
-    self.historyLabel.attributedText = [self stringForMoveAtIndex:maxHistoryIndex];
-    NSLog(@"%lu", (unsigned long)self.game.cardsToMatch);
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"showHistory"]) {
+        CardGameHistoryViewController *cghvc = (CardGameHistoryViewController *)segue.destinationViewController;
+        NSMutableAttributedString *history = [[NSMutableAttributedString alloc] init];
+        for (NSUInteger i = 0; i <= [self maxHistoryIndex]; i++) {
+            [history appendAttributedString:[self stringForMoveAtIndex:i]];
+            [history appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+        }
+        [history addAttribute:NSFontAttributeName
+                        value:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]
+                        range:NSMakeRange(0, [history length])];
+        cghvc.historyText = [[NSAttributedString alloc] initWithAttributedString:history];
+    }
 }
 
 @end
