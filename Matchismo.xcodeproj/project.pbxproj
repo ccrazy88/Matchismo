@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		99168BE31A28633800C4D939 /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 99168BE21A28633800C4D939 /* PlayingCardDeck.m */; };
+		99195DC71A63815E000F3042 /* SetCardGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99195DC61A63815E000F3042 /* SetCardGameViewController.m */; };
+		9938C6D11A50D635008A33C7 /* SetCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 9938C6D01A50D635008A33C7 /* SetCard.m */; };
+		9938C6D41A50D643008A33C7 /* SetCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 9938C6D31A50D643008A33C7 /* SetCardDeck.m */; };
 		993991B51A3ACEA20038B520 /* CardMatchingGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 993991B41A3ACEA20038B520 /* CardMatchingGame.m */; };
 		994F9FB91A00DDE700BF3351 /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 994F9FB81A00DDE700BF3351 /* PlayingCard.m */; };
 		9952F4FD1A46DE6500A448A0 /* CardMatchingGameResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9952F4FC1A46DE6500A448A0 /* CardMatchingGameResult.m */; };
@@ -37,6 +40,12 @@
 /* Begin PBXFileReference section */
 		99168BE11A28633800C4D939 /* PlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCardDeck.h; path = Model/PlayingCardDeck.h; sourceTree = "<group>"; };
 		99168BE21A28633800C4D939 /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCardDeck.m; path = Model/PlayingCardDeck.m; sourceTree = "<group>"; };
+		99195DC51A63815E000F3042 /* SetCardGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetCardGameViewController.h; sourceTree = "<group>"; };
+		99195DC61A63815E000F3042 /* SetCardGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetCardGameViewController.m; sourceTree = "<group>"; };
+		9938C6CF1A50D635008A33C7 /* SetCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetCard.h; path = Model/SetCard.h; sourceTree = "<group>"; };
+		9938C6D01A50D635008A33C7 /* SetCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetCard.m; path = Model/SetCard.m; sourceTree = "<group>"; };
+		9938C6D21A50D643008A33C7 /* SetCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetCardDeck.h; sourceTree = "<group>"; };
+		9938C6D31A50D643008A33C7 /* SetCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetCardDeck.m; sourceTree = "<group>"; };
 		993991B31A3ACEA20038B520 /* CardMatchingGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardMatchingGame.h; path = Model/CardMatchingGame.h; sourceTree = "<group>"; };
 		993991B41A3ACEA20038B520 /* CardMatchingGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardMatchingGame.m; path = Model/CardMatchingGame.m; sourceTree = "<group>"; };
 		994F9FB71A00DDE700BF3351 /* PlayingCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCard.h; path = Model/PlayingCard.h; sourceTree = "<group>"; };
@@ -112,6 +121,8 @@
 				99D5295C19FCC25000D52D8A /* CardGameViewController.m */,
 				99E013DC1A4B7CBE00CC4D5B /* PlayingCardGameViewController.h */,
 				99E013DD1A4B7CBE00CC4D5B /* PlayingCardGameViewController.m */,
+				99195DC51A63815E000F3042 /* SetCardGameViewController.h */,
+				99195DC61A63815E000F3042 /* SetCardGameViewController.m */,
 				99D5295E19FCC25000D52D8A /* Main.storyboard */,
 				99D5296119FCC25000D52D8A /* Images.xcassets */,
 				99D5296319FCC25000D52D8A /* LaunchScreen.xib */,
@@ -157,10 +168,14 @@
 				99D5297D19FCC2EC00D52D8A /* Card.m */,
 				994F9FB71A00DDE700BF3351 /* PlayingCard.h */,
 				994F9FB81A00DDE700BF3351 /* PlayingCard.m */,
+				9938C6CF1A50D635008A33C7 /* SetCard.h */,
+				9938C6D01A50D635008A33C7 /* SetCard.m */,
 				99D529B119FCFBC700D52D8A /* Deck.h */,
 				99D529B219FCFBC700D52D8A /* Deck.m */,
 				99168BE11A28633800C4D939 /* PlayingCardDeck.h */,
 				99168BE21A28633800C4D939 /* PlayingCardDeck.m */,
+				9938C6D21A50D643008A33C7 /* SetCardDeck.h */,
+				9938C6D31A50D643008A33C7 /* SetCardDeck.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -214,6 +229,7 @@
 				TargetAttributes = {
 					99D5295019FCC24F00D52D8A = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = UQ2F9BDGJ8;
 					};
 					99D5296919FCC25000D52D8A = {
 						CreatedOnToolsVersion = 6.1;
@@ -268,12 +284,15 @@
 			files = (
 				994F9FB91A00DDE700BF3351 /* PlayingCard.m in Sources */,
 				99D529B319FCFBC700D52D8A /* Deck.m in Sources */,
+				99195DC71A63815E000F3042 /* SetCardGameViewController.m in Sources */,
 				9952F4FD1A46DE6500A448A0 /* CardMatchingGameResult.m in Sources */,
 				99E013DE1A4B7CBE00CC4D5B /* PlayingCardGameViewController.m in Sources */,
 				99D5295D19FCC25000D52D8A /* CardGameViewController.m in Sources */,
+				9938C6D11A50D635008A33C7 /* SetCard.m in Sources */,
 				99D5295A19FCC25000D52D8A /* AppDelegate.m in Sources */,
 				993991B51A3ACEA20038B520 /* CardMatchingGame.m in Sources */,
 				99168BE31A28633800C4D939 /* PlayingCardDeck.m in Sources */,
+				9938C6D41A50D643008A33C7 /* SetCardDeck.m in Sources */,
 				99D5295719FCC24F00D52D8A /* main.m in Sources */,
 				99D5297E19FCC2EC00D52D8A /* Card.m in Sources */,
 			);
@@ -400,10 +419,13 @@
 			baseConfigurationReference = 99E013DA1A4B756200CC4D5B /* Warnings.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Matchismo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -412,10 +434,13 @@
 			baseConfigurationReference = 99E013DA1A4B756200CC4D5B /* Warnings.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Matchismo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

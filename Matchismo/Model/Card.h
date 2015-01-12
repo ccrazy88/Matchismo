@@ -15,6 +15,8 @@
 @property (nonatomic, getter=isChosen) BOOL chosen;
 @property (nonatomic, getter=isMatched) BOOL matched;
 
++ (NSUInteger)uniqueKey:(NSString *)key inCards:(NSArray *)cards;
+
 - (NSInteger)match:(NSArray *)otherCards;
 
 @end

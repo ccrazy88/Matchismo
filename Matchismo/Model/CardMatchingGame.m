@@ -51,17 +51,27 @@ static const NSUInteger MIN_CARDS_TO_MATCH = 2;
 
 - (instancetype)initWithCardCount:(NSUInteger)count
                         usingDeck:(Deck *)deck
+                     cardsToMatch:(NSUInteger)cardsToMatch
 {
     self = [super init];
     if (self) {
+        // Draw cards randomly.
         for (NSUInteger i = 0; i < count; i++) {
             Card *card = [deck drawRandomCard];
             if (card) {
                 [self.cards addObject:card];
             } else {
-                self = nil;
-                break;
+                return nil;
             }
+        }
+
+        // Hopefully the number of cards to match makes sense.
+        // Has to happen after cards are put into the deck because otherwise, setting cardsToMatch
+        // won't work as intended.
+        if (cardsToMatch < MIN_CARDS_TO_MATCH || cardsToMatch > count) {
+            return nil;
+        } else {
+            self.cardsToMatch = cardsToMatch;
         }
     }
     return self;

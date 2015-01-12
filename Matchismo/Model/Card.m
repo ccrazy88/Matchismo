@@ -14,6 +14,18 @@
 
 @implementation Card
 
+#pragma mark - Utilities
+
++ (NSUInteger)uniqueKey:(NSString *)key inCards:(NSArray *)cards
+{
+    NSMutableSet *set = [[NSMutableSet alloc] init];
+    for (id card in cards) {
+        id value = [card valueForKey:key];
+        [set addObject:value];
+    }
+    return [set count];
+}
+
 #pragma mark - Card Matching
 
 - (NSInteger)match:(NSArray *)otherCards

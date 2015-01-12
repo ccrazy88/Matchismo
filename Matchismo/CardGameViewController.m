@@ -14,10 +14,8 @@
 
 @property (strong, nonatomic) CardMatchingGame *game;
 
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (strong, nonatomic, readwrite) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *historyLabel;
-@property (weak, nonatomic) IBOutlet UISlider *historySlider;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *modeSegmentedControl;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
 @end
@@ -41,55 +39,62 @@
     return nil;
 }
 
-#pragma mark - Utilities
-
 - (CardMatchingGame *)createGame
 {
-    return [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                             usingDeck:[self createDeck]];
+    return nil;
 }
 
-- (NSString *)titleForCard:(Card *)card
+- (NSAttributedString *)titleForCard:(Card *)card
 {
-    return card.isChosen ? card.contents : nil;
+    return nil;
 }
 
 - (UIImage *)backgroundImageForCard:(Card *)card
 {
-    return [UIImage imageNamed:card.isChosen ? @"CardFront" : @"CardBack"];
+    return nil;
 }
 
-- (NSString *)stringForCards:(NSArray *)cards
+- (NSAttributedString *)stringForCards:(NSArray *)cards
 {
-    NSString *cardsString = @"";
-    for (Card *card in cards) {
-        cardsString = [cardsString stringByAppendingString:card.contents];
-    }
-    return cardsString;
+    return nil;
 }
 
-- (NSString *)stringForMoveAtIndex:(NSUInteger)index
+#pragma mark - Utilities
+
+- (NSAttributedString *)stringForMoveAtIndex:(NSUInteger)index
 {
-    NSString *moveString;
+    NSMutableAttributedString *moveString = [[NSMutableAttributedString alloc] init];
     if (index < [self.game.history count]) {
         CardMatchingGameResult *move = self.game.history[index];
-        NSString *cards = [self stringForCards:move.cards];
+        NSAttributedString *cards = [self stringForCards:move.cards];
         NSInteger score = move.matchScore;
         if (move.matchAttempted) {
             if (move.isMatched) {
-                moveString = [NSString stringWithFormat:@"Matched %@ for %ld point", cards, (long)score];
-                moveString = [moveString stringByAppendingString:score != 1 ? @"s." : @"."];
+                NSString *prefix = @"Matched ";
+                [moveString appendAttributedString:[[NSAttributedString alloc] initWithString:prefix]];
+                [moveString appendAttributedString:cards];
+                NSString *suffix = [NSString stringWithFormat:@" for %ld point", (long)score];
+                suffix = [suffix stringByAppendingString:score != 1 ? @"s." : @"."];
+                [moveString appendAttributedString:[[NSAttributedString alloc] initWithString:suffix]];
             } else {
-                moveString = [NSString stringWithFormat:@"%@ don't match! %ld point penalty!", cards, (long)score];
+                [moveString appendAttributedString:cards];
+                NSString *suffix = [NSString stringWithFormat:@" don't match! %ld point penalty!", (long)score];
+                [moveString appendAttributedString:[[NSAttributedString alloc] initWithString:suffix]];
             }
         } else {
-            moveString = cards;
+            [moveString appendAttributedString:cards];
         }
     }
     return moveString;
 }
 
 #pragma mark - Game
+
+- (void)createNewGame
+{
+    self.game = [self createGame];
+    [self resetUI];
+}
 
 - (IBAction)startNewGame {
     UIAlertController *alertController;
@@ -106,8 +111,7 @@
                                          style:UIAlertActionStyleDefault
                                        handler:^(UIAlertAction *action) {
                                            dispatch_async(dispatch_get_main_queue(), ^{
-                                               self.game = [self createGame];
-                                               [self resetUI];
+                                               [self createNewGame];
                                            });
                                        }];
 
@@ -118,15 +122,6 @@
 
 - (IBAction)touchCardButton:(UIButton *)sender
 {
-    if (self.modeSegmentedControl.enabled) {
-        self.modeSegmentedControl.enabled = NO;
-        NSInteger segmentIndex = self.modeSegmentedControl.selectedSegmentIndex;
-        if (segmentIndex == 0) {
-            self.game.cardsToMatch = 2;
-        } else if (segmentIndex == 1) {
-            self.game.cardsToMatch = 3;
-        }
-    }
     // Assumes that all buttons are inside cardButtons.
     NSUInteger cardButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:cardButtonIndex];
@@ -134,15 +129,9 @@
 }
 
 #pragma mark - UI
-- (IBAction)slideThroughHistory:(UISlider *)sender {
-    NSUInteger historyIndex = (NSUInteger)round(sender.value);
-    self.historyLabel.text = [self stringForMoveAtIndex:historyIndex];
-    self.historyLabel.alpha = historyIndex < (NSUInteger)round(sender.maximumValue) ? 0.5f : 1.0f;
-}
 
 - (void)resetUI
 {
-    self.modeSegmentedControl.enabled = YES;
     [self updateUI];
 }
 
@@ -151,8 +140,9 @@
     for (UIButton *cardButton in self.cardButtons) {
         NSUInteger cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
         Card *card = [self.game cardAtIndex:cardButtonIndex];
-        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
-        [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
+        [cardButton setAttributedTitle:[self titleForCard:card] forState:UIControlStateNormal];
+        [cardButton setBackgroundImage:[self backgroundImageForCard:card]
+                              forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
     }
 
@@ -160,10 +150,8 @@
 
     NSUInteger historyCount = [self.game.history count];
     NSUInteger maxHistoryIndex = historyCount == 0 ? 0 : historyCount - 1;
-    self.historySlider.maximumValue = (float)maxHistoryIndex;
-    self.historySlider.enabled = self.historySlider.minimumValue == self.historySlider.maximumValue ? NO : YES;
-    [self.historySlider setValue:self.historySlider.maximumValue animated:YES];
-    [self slideThroughHistory:self.historySlider];
+    self.historyLabel.attributedText = [self stringForMoveAtIndex:maxHistoryIndex];
+    NSLog(@"%lu", (unsigned long)self.game.cardsToMatch);
 }
 
 @end

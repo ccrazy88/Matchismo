@@ -55,22 +55,30 @@
     return @[@"♠️", @"♣️", @"♥️", @"♦️"];
 }
 
-- (NSUInteger)uniqueRanksInCards:(NSArray *)cards
++ (BOOL)isArrayOfPlayingCards:(NSArray *)cards
 {
-    NSMutableDictionary *ranks = [[NSMutableDictionary alloc] init];
-    for (PlayingCard *card in cards) {
-        [ranks setValue:@1 forKey:[NSString stringWithFormat:@"%lu", (unsigned long)card.rank]];
+    for (id card in cards) {
+        if (![card isKindOfClass:[PlayingCard class]]) {
+            return NO;
+        }
     }
-    return [ranks count];
+    return YES;
 }
 
-- (NSUInteger)uniqueSuitsInCards:(NSArray *)cards
++ (NSUInteger)uniqueRanksInCards:(NSArray *)cards
 {
-    NSMutableDictionary *suits = [[NSMutableDictionary alloc] init];
-    for (PlayingCard *card in cards) {
-        [suits setValue:@1 forKey:card.suit];
+    if ([[self class] isArrayOfPlayingCards:cards]) {
+        return [PlayingCard uniqueKey:@"rank" inCards:cards];
     }
-    return [suits count];
+    return 0;
+}
+
++ (NSUInteger)uniqueSuitsInCards:(NSArray *)cards
+{
+    if ([PlayingCard isArrayOfPlayingCards:cards]) {
+        return [PlayingCard uniqueKey:@"suit" inCards:cards];
+    }
+    return 0;
 }
 
 #pragma mark - Card Matching
@@ -81,10 +89,8 @@
     NSUInteger otherCardsCount = [otherCards count];
 
     // Only matching with PlayingCard supported.
-    for (id card in otherCards) {
-        if (![card isKindOfClass:[PlayingCard class]]) {
-            return score;
-        }
+    if (![PlayingCard isArrayOfPlayingCards:otherCards]) {
+        return score;
     }
 
     // Matching with one other card and two other cards supported.
@@ -97,8 +103,8 @@
         }
     } else if (otherCardsCount == 2) {
         NSArray *allCards = [otherCards arrayByAddingObjectsFromArray:@[self]];
-        NSUInteger uniqueRanks = [self uniqueRanksInCards:allCards];
-        NSUInteger uniqueSuits = [self uniqueSuitsInCards:allCards];
+        NSUInteger uniqueRanks = [PlayingCard uniqueRanksInCards:allCards];
+        NSUInteger uniqueSuits = [PlayingCard uniqueSuitsInCards:allCards];
         if (uniqueRanks == 1) {
             score = 100;
         } else if (uniqueSuits == 1) {
